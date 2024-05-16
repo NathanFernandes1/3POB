@@ -1,5 +1,7 @@
 package br.com.crudProdutos;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import java.util.Scanner;
 
 
@@ -13,7 +15,7 @@ public class Main {
 	
 	do {
 		
-		System.out.println("1-Cadastrar Produto\n2-AlterarProduto\n3-Excluir Produto\n4-Listar todos os produtos\n5-Listar um produto");
+		System.out.println("1-Cadastrar Produto\n2-AlterarProduto\n3-Excluir Produto\n4-Listar todos os produtos\n5-Listar um produto\n0-Sair");
 		opcao = sc.nextInt();
 		
 		switch (opcao) {
@@ -126,18 +128,23 @@ public class Main {
 	 }
 	 
 	 private static void excluirProduto(ArrayList<Produto> produtos) {
-		 Scanner sc = new Scanner(System.in);
+		    Scanner sc = new Scanner(System.in);
 
-	        System.out.println("Digite o ID do produto:");
-	        int id = sc.nextInt();
-		 for(Produto produt : produtos) {
-			 
-		        
-	        	if(id== produt.getIdProduto()) {
-				 produtos.remove(produt);
-	        	}
-			 }
-	 }
+		    System.out.println("Digite o ID do produto:");
+		    int id = sc.nextInt();
+		    
+		    Iterator<Produto> iterator = produtos.iterator();
+		    while (iterator.hasNext()) {
+		        Produto produto = iterator.next();
+		        if (produto.getIdProduto() == id) {
+		            iterator.remove(); 
+		            System.out.println("Produto removido com sucesso.");
+		            return; 
+		        }
+		    }
+		    System.out.println("Produto com ID " + id + " não encontrado.");
+		}
+
 	 private static void alterarProduto(ArrayList<Produto> produtos) {
 		 Scanner sc = new Scanner(System.in);
 		 System.out.println("Digite o ID do produto:");
